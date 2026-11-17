@@ -1,0 +1,839 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio GitHub | esmereina16</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Iconos -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Fuente -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        body {
+            background: #fff0f5;
+        }
+
+        .sidebar {
+            background: linear-gradient(180deg, #fff 0%, #fff5f8 100%);
+        }
+
+        .main-gradient {
+            background: linear-gradient(135deg, #ec4899, #be185d);
+        }
+
+        .repo-card {
+            transition: all .25s ease;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(190, 24, 93, .12);
+            border-color: #f9a8d4;
+        }
+
+        .active-filter {
+            background: #fce7f3;
+            color: #be185d;
+            font-weight: 700;
+        }
+
+        .pink-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .pink-scroll::-webkit-scrollbar-thumb {
+            background: #f9a8d4;
+            border-radius: 20px;
+        }
+
+        .tag {
+            background: #fce7f3;
+            color: #be185d;
+        }
+
+        .hidden-card {
+            display: none !important;
+        }
+
+        .mobile-menu {
+            transition: transform .3s ease;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-gray-800">
+
+<div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+        class="sidebar fixed lg:sticky top-0 left-0 z-50 w-72 h-screen border-r border-pink-100 p-6 flex flex-col mobile-menu -translate-x-full lg:translate-x-0">
+
+        <!-- PERFIL -->
+        <div class="flex items-center gap-3 mb-9">
+            <img id="avatar"
+                src="https://github.com/esmereina16.png"
+                alt="Avatar"
+                class="w-14 h-14 rounded-2xl border-4 border-pink-100 shadow-sm">
+
+            <div>
+                <h2 class="font-extrabold text-gray-800 text-lg">
+                    esmereina16
+                </h2>
+                <p class="text-xs text-pink-500 font-semibold">
+                    GitHub Developer
+                </p>
+            </div>
+        </div>
+
+        <!-- NAVEGACIÓN -->
+        <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">
+            Navegación
+        </p>
+
+        <nav class="space-y-2 mb-8">
+            <button onclick="filterRepos('Todos')"
+                class="filter-btn active-filter w-full flex items-center gap-3 p-3 rounded-xl text-sm text-left transition">
+                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                Todos los proyectos
+            </button>
+
+            <a href="https://github.com/esmereina16"
+                target="_blank"
+                class="flex items-center gap-3 p-3 rounded-xl text-sm text-gray-600 hover:bg-pink-50 transition">
+                <i data-lucide="github" class="w-5 h-5"></i>
+                Perfil de GitHub
+            </a>
+
+            <a href="https://github.com/esmereina16?tab=repositories"
+                target="_blank"
+                class="flex items-center gap-3 p-3 rounded-xl text-sm text-gray-600 hover:bg-pink-50 transition">
+                <i data-lucide="folder-git-2" class="w-5 h-5"></i>
+                Repositorios
+            </a>
+        </nav>
+
+        <!-- CATEGORÍAS -->
+        <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">
+            Categorías
+        </p>
+
+        <div class="space-y-1 flex-1 overflow-y-auto pink-scroll">
+
+            <button onclick="filterRepos('Python / Gráficos')" class="filter-btn w-full text-left p-3 rounded-xl text-sm hover:bg-pink-50 flex items-center gap-3">
+                <span>🐍</span> Python / Gráficos
+            </button>
+
+            <button onclick="filterRepos('HTML / Bootstrap')" class="filter-btn w-full text-left p-3 rounded-xl text-sm hover:bg-pink-50 flex items-center gap-3">
+                <span>🌐</span> HTML / Bootstrap
+            </button>
+
+            <button onclick="filterRepos('Hardware / ESP32')" class="filter-btn w-full text-left p-3 rounded-xl text-sm hover:bg-pink-50 flex items-center gap-3">
+                <span>⚙️</span> Hardware / ESP32
+            </button>
+
+            <button onclick="filterRepos('PHP')" class="filter-btn w-full text-left p-3 rounded-xl text-sm hover:bg-pink-50 flex items-center gap-3">
+                <span>🐘</span> PHP
+            </button>
+
+            <button onclick="filterRepos('IA')" class="filter-btn w-full text-left p-3 rounded-xl text-sm hover:bg-pink-50 flex items-center gap-3">
+                <span>🤖</span> Inteligencia Artificial
+            </button>
+
+            <button onclick="filterRepos('General')" class="filter-btn w-full text-left p-3 rounded-xl text-sm hover:bg-pink-50 flex items-center gap-3">
+                <span>📚</span> General
+            </button>
+        </div>
+
+        <!-- BUSCADOR -->
+        <div class="mt-5">
+            <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">
+                Buscar proyecto
+            </p>
+
+            <div class="relative">
+                <i data-lucide="search"
+                    class="absolute left-3 top-3 w-4 h-4 text-pink-400"></i>
+
+                <input id="searchInput"
+                    type="text"
+                    placeholder="Buscar repositorio..."
+                    class="w-full bg-pink-50 border border-pink-100 rounded-xl pl-10 pr-3 py-3 text-sm outline-none focus:ring-2 focus:ring-pink-300">
+            </div>
+        </div>
+
+        <div class="mt-6 pt-5 border-t border-pink-100">
+            <p class="text-xs text-gray-400 text-center">
+                Diseñado con 💗 para esmereina16
+            </p>
+        </div>
+
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-1 min-w-0 p-4 md:p-8 lg:p-10">
+
+        <!-- HEADER -->
+        <header class="flex justify-between items-center mb-8">
+
+            <div class="flex items-center gap-3">
+                <button id="menuBtn"
+                    class="lg:hidden bg-white p-2 rounded-xl shadow-sm text-pink-600">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div>
+                    <p class="text-sm text-pink-500 font-semibold mb-1">
+                        PORTAFOLIO PERSONAL
+                    </p>
+                    <h1 class="text-xl md:text-3xl font-extrabold text-gray-900">
+                        Mis repositorios
+                        <span class="text-pink-600">♡</span>
+                    </h1>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Explorá mis proyectos y trabajos de desarrollo.
+                    </p>
+                </div>
+            </div>
+
+            <a href="https://github.com/esmereina16"
+                target="_blank"
+                class="hidden sm:flex items-center gap-2 main-gradient text-white px-5 py-3 rounded-xl font-semibold text-sm shadow-lg shadow-pink-200 hover:opacity-90 transition">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                Mi GitHub
+            </a>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="main-gradient rounded-3xl p-7 md:p-9 text-white mb-8 relative overflow-hidden shadow-xl shadow-pink-200">
+
+            <div class="relative z-10 max-w-xl">
+                <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold">
+                    ✨ Bienvenidos a mi espacio
+                </span>
+
+                <h2 class="text-2xl md:text-4xl font-extrabold mt-5 leading-tight">
+                    Ideas, código y proyectos en un solo lugar.
+                </h2>
+
+                <p class="text-pink-100 mt-4 text-sm md:text-base leading-relaxed">
+                    Este es mi portafolio de GitHub. Un espacio donde
+                    reúno mis proyectos, prácticas y experiencias
+                    en programación y tecnología.
+                </p>
+
+                <a href="https://github.com/esmereina16?tab=repositories"
+                    target="_blank"
+                    class="inline-flex items-center gap-2 mt-6 bg-white text-pink-600 px-5 py-3 rounded-xl font-bold text-sm hover:bg-pink-50 transition">
+                    Explorar repositorios
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="absolute right-[-30px] bottom-[-80px] text-white/10">
+                <i data-lucide="code-2" style="width:280px;height:280px"></i>
+            </div>
+
+        </section>
+
+        <!-- MÉTRICAS -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-9">
+
+            <div class="bg-white rounded-2xl border border-pink-100 p-5 shadow-sm">
+                <div class="flex justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Repositorios</p>
+                        <h3 id="totalRepos" class="text-3xl font-extrabold mt-2">12</h3>
+                    </div>
+                    <div class="bg-pink-100 p-3 rounded-xl text-pink-600 h-fit">
+                        <i data-lucide="folder-git-2"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-pink-500 mt-3">Proyectos registrados</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-pink-100 p-5 shadow-sm">
+                <div class="flex justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Lenguajes</p>
+                        <h3 id="totalLanguages" class="text-3xl font-extrabold mt-2">6+</h3>
+                    </div>
+                    <div class="bg-purple-100 p-3 rounded-xl text-purple-600 h-fit">
+                        <i data-lucide="code"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-pink-500 mt-3">Tecnologías utilizadas</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-pink-100 p-5 shadow-sm">
+                <div class="flex justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Estrellas</p>
+                        <h3 id="totalStars" class="text-3xl font-extrabold mt-2">0</h3>
+                    </div>
+                    <div class="bg-yellow-100 p-3 rounded-xl text-yellow-600 h-fit">
+                        <i data-lucide="star"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-pink-500 mt-3">Estrellas acumuladas</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-pink-100 p-5 shadow-sm">
+                <div class="flex justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Estado</p>
+                        <h3 id="apiStatus" class="text-xl font-extrabold mt-3">Conectando</h3>
+                    </div>
+                    <div class="bg-green-100 p-3 rounded-xl text-green-600 h-fit">
+                        <i data-lucide="activity"></i>
+                    </div>
+                </div>
+                <p id="apiMessage" class="text-xs text-pink-500 mt-3">Consultando GitHub...</p>
+            </div>
+
+        </section>
+
+        <!-- PROYECTOS -->
+        <section>
+
+            <div class="flex flex-wrap justify-between items-end gap-3 mb-6">
+                <div>
+                    <p class="text-pink-500 text-xs font-bold uppercase tracking-widest">
+                        Mi trabajo
+                    </p>
+                    <h2 class="text-2xl font-extrabold mt-1">
+                        Todos los proyectos
+                    </h2>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Seleccioná un proyecto para conocer más.
+                    </p>
+                </div>
+
+                <span id="resultsCount"
+                    class="bg-white border border-pink-100 px-4 py-2 rounded-xl text-sm text-pink-600 font-semibold">
+                    12 proyectos
+                </span>
+            </div>
+
+            <!-- CARDS -->
+            <div id="repoGrid"
+                class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+
+            </div>
+
+            <!-- SIN RESULTADOS -->
+            <div id="emptyState" class="hidden text-center py-16 bg-white rounded-2xl border border-pink-100">
+                <div class="text-5xl mb-4">🔎</div>
+                <h3 class="font-bold text-xl">No encontramos proyectos</h3>
+                <p class="text-gray-500 text-sm mt-2">
+                    Probá con otra búsqueda o categoría.
+                </p>
+                <button onclick="resetFilters()"
+                    class="mt-5 bg-pink-600 text-white px-5 py-2 rounded-xl">
+                    Mostrar todos
+                </button>
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="mt-12 border-t border-pink-200 pt-7 pb-4 flex flex-col md:flex-row justify-between gap-3 text-sm text-gray-500">
+
+            <p>
+                © 2026 <strong class="text-pink-600">esmereina16</strong>.
+                Portafolio personal.
+            </p>
+
+            <a href="https://github.com/esmereina16"
+                target="_blank"
+                class="flex items-center gap-2 hover:text-pink-600">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                GitHub Profile
+            </a>
+
+        </footer>
+
+    </main>
+</div>
+
+<script>
+
+// ==========================================
+// 1. BASE DE DATOS LOCAL DE REPOSITORIOS
+// ==========================================
+
+const username = "esmereina16";
+
+const repositories = [
+
+    {
+        name: "actividades",
+        category: "General",
+        language: "HTML",
+        tags: ["HTML", "Prácticas", "Desarrollo"],
+        description: "Repositorio destinado a actividades, ejercicios y trabajos prácticos relacionados con programación y desarrollo."
+    },
+
+    {
+        name: "graficossss",
+        category: "Python / Gráficos",
+        language: "Python",
+        tags: ["Python", "Gráficos", "Datos"],
+        description: "Proyecto enfocado en la creación de gráficos, representación visual y análisis de datos mediante herramientas de programación."
+    },
+
+    {
+        name: "huerta-",
+        category: "Hardware / ESP32",
+        language: "C++",
+        tags: ["IoT", "ESP32", "Automatización"],
+        description: "Proyecto tecnológico relacionado con el monitoreo y la automatización de una huerta mediante sensores y dispositivos electrónicos."
+    },
+
+    {
+        name: "esmereina16",
+        category: "General",
+        language: "Markdown",
+        tags: ["GitHub", "Perfil", "Markdown"],
+        description: "Repositorio especial del perfil de GitHub, utilizado para presentar información personal y destacar la actividad de desarrollo."
+    },
+
+    {
+        name: "IA",
+        category: "IA",
+        language: "Python",
+        tags: ["IA", "Tecnología", "Programación"],
+        description: "Espacio dedicado a proyectos, ejercicios y exploraciones relacionadas con inteligencia artificial."
+    },
+
+    {
+        name: "PRONTT",
+        category: "General",
+        language: "HTML",
+        tags: ["Proyecto", "Desarrollo", "Web"],
+        description: "Repositorio de desarrollo de un proyecto tecnológico. Contiene archivos y recursos de trabajo."
+    },
+
+    {
+        name: "esp32",
+        category: "Hardware / ESP32",
+        language: "C++",
+        tags: ["ESP32", "Hardware", "IoT"],
+        description: "Proyectos de hardware y programación de microcontroladores ESP32, orientados a sistemas electrónicos y dispositivos inteligentes."
+    },
+
+    {
+        name: "recursividad",
+        category: "General",
+        language: "Python",
+        tags: ["Python", "Algoritmos", "Lógica"],
+        description: "Ejercicios de programación enfocados en la recursividad, resolución de problemas y comprensión de algoritmos."
+    },
+
+    {
+        name: "php",
+        category: "PHP",
+        language: "PHP",
+        tags: ["PHP", "Backend", "Web"],
+        description: "Prácticas y desarrollos relacionados con PHP, programación del lado del servidor y aplicaciones web."
+    },
+
+    {
+        name: "BOOTSTAP",
+        category: "HTML / Bootstrap",
+        language: "HTML",
+        tags: ["HTML", "Bootstrap", "CSS"],
+        description: "Proyecto orientado al desarrollo de interfaces web utilizando HTML y herramientas de diseño responsive."
+    },
+
+    {
+        name: "repasoo",
+        category: "General",
+        language: "HTML",
+        tags: ["Prácticas", "Repaso", "Programación"],
+        description: "Repositorio de repaso y ejercitación de contenidos de programación y desarrollo."
+    },
+
+    {
+        name: "mark-down",
+        category: "General",
+        language: "Markdown",
+        tags: ["Markdown", "Documentación", "Texto"],
+        description: "Prácticas y recursos para aprender a utilizar Markdown y crear documentos estructurados."
+    }
+
+].map(repo => ({
+    ...repo,
+    url: `https://github.com/${username}/${repo.name}`,
+    stars: 0,
+    updated_at: null
+}));
+
+
+// ==========================================
+// 2. ICONOS Y COLORES POR TECNOLOGÍA
+// ==========================================
+
+const languageColors = {
+    Python: "bg-blue-50 text-blue-700",
+    HTML: "bg-orange-50 text-orange-700",
+    PHP: "bg-indigo-50 text-indigo-700",
+    "C++": "bg-purple-50 text-purple-700",
+    Markdown: "bg-gray-100 text-gray-700",
+    JavaScript: "bg-yellow-50 text-yellow-700",
+    CSS: "bg-sky-50 text-sky-700"
+};
+
+const categoryIcons = {
+    "Python / Gráficos": "chart-no-axes-combined",
+    "HTML / Bootstrap": "monitor",
+    "Hardware / ESP32": "cpu",
+    "PHP": "database",
+    "IA": "brain-circuit",
+    "General": "code-2"
+};
+
+
+// ==========================================
+// 3. RENDERIZAR TARJETAS
+// ==========================================
+
+const grid = document.getElementById("repoGrid");
+
+function renderRepos(data) {
+
+    grid.innerHTML = "";
+
+    document.getElementById("emptyState")
+        .classList.toggle("hidden", data.length !== 0);
+
+    document.getElementById("resultsCount").textContent =
+        `${data.length} ${data.length === 1 ? "proyecto" : "proyectos"}`;
+
+    data.forEach(repo => {
+
+        const color = languageColors[repo.language] || "bg-pink-50 text-pink-700";
+
+        const icon = categoryIcons[repo.category] || "code";
+
+        const tags = repo.tags.map(tag => `
+            <span class="tag text-xs px-3 py-1.5 rounded-lg font-semibold">
+                ${escapeHTML(tag)}
+            </span>
+        `).join("");
+
+        const card = document.createElement("article");
+
+        card.className = "repo-card bg-white rounded-2xl border border-pink-100 p-5 shadow-sm flex flex-col";
+
+        card.innerHTML = `
+
+            <div class="flex justify-between items-start mb-5">
+
+                <div class="w-12 h-12 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center">
+                    <i data-lucide="${icon}" class="w-6 h-6"></i>
+                </div>
+
+                <span class="text-xs font-semibold text-gray-400 bg-gray-50 px-3 py-1.5 rounded-lg">
+                    ${escapeHTML(repo.category)}
+                </span>
+
+            </div>
+
+            <h3 class="text-lg font-extrabold text-gray-900 mb-2">
+                ${escapeHTML(repo.name)}
+            </h3>
+
+            <p class="text-sm text-gray-500 leading-relaxed flex-1 min-h-[85px]">
+                ${escapeHTML(repo.description)}
+            </p>
+
+            <div class="flex flex-wrap gap-2 mt-4">
+                ${tags}
+            </div>
+
+            <div class="flex items-center justify-between border-t border-pink-50 mt-5 pt-4">
+
+                <span class="${color} text-xs font-bold px-3 py-1.5 rounded-lg">
+                    ${escapeHTML(repo.language || "Sin especificar")}
+                </span>
+
+                <span class="text-xs text-gray-400 flex items-center gap-1">
+                    <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                    ${Number(repo.stars) || 0}
+                </span>
+
+            </div>
+
+            <a href="${repo.url}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-4 w-full flex items-center justify-center gap-2 bg-pink-600 hover:bg-pink-700 text-white rounded-xl py-3 text-sm font-bold transition">
+
+                <i data-lucide="github" class="w-4 h-4"></i>
+                Ver código en GitHub
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+
+            </a>
+        `;
+
+        grid.appendChild(card);
+    });
+
+    lucide.createIcons();
+}
+
+
+// ==========================================
+// 4. SEGURIDAD PARA TEXTO DINÁMICO
+// ==========================================
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[char]);
+}
+
+
+// ==========================================
+// 5. SISTEMA DE FILTROS
+// ==========================================
+
+let currentCategory = "Todos";
+
+function filterRepos(category) {
+
+    currentCategory = category;
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.classList.remove("active-filter");
+    });
+
+    const selected = Array.from(
+        document.querySelectorAll(".filter-btn")
+    ).find(btn =>
+        btn.textContent.trim().includes(category) ||
+        (category === "Todos" && btn.textContent.includes("Todos"))
+    );
+
+    if (selected) {
+        selected.classList.add("active-filter");
+    }
+
+    applyFilters();
+}
+
+function applyFilters() {
+
+    const query = document.getElementById("searchInput")
+        .value.toLowerCase().trim();
+
+    const filtered = repositories.filter(repo => {
+
+        const matchesCategory =
+            currentCategory === "Todos" ||
+            repo.category === currentCategory;
+
+        const searchable = [
+            repo.name,
+            repo.description,
+            repo.language,
+            repo.category,
+            ...repo.tags
+        ].join(" ").toLowerCase();
+
+        const matchesSearch = searchable.includes(query);
+
+        return matchesCategory && matchesSearch;
+    });
+
+    renderRepos(filtered);
+}
+
+function resetFilters() {
+
+    currentCategory = "Todos";
+
+    document.getElementById("searchInput").value = "";
+
+    filterRepos("Todos");
+}
+
+document.getElementById("searchInput")
+    .addEventListener("input", applyFilters);
+
+
+// ==========================================
+// 6. API OFICIAL DE GITHUB
+// ==========================================
+
+async function loadGitHubData() {
+
+    const status = document.getElementById("apiStatus");
+    const message = document.getElementById("apiMessage");
+
+    try {
+
+        const response = await fetch(
+            `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`,
+            {
+                headers: {
+                    "Accept": "application/vnd.github+json"
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("No se pudo consultar GitHub");
+        }
+
+        const githubRepos = await response.json();
+
+        let totalStars = 0;
+
+        // Actualizar datos de los repositorios existentes.
+        githubRepos.forEach(remote => {
+
+            const local = repositories.find(
+                repo => repo.name.toLowerCase() === remote.name.toLowerCase()
+            );
+
+            if (!local) return;
+
+            local.language = remote.language || local.language;
+            local.stars = remote.stargazers_count || 0;
+            local.updated_at = remote.updated_at;
+
+            if (remote.description) {
+                local.description = remote.description;
+            }
+
+            totalStars += remote.stargazers_count || 0;
+        });
+
+        // Incorporar repositorios nuevos del perfil.
+        githubRepos.forEach(remote => {
+
+            const exists = repositories.some(
+                repo => repo.name.toLowerCase() === remote.name.toLowerCase()
+            );
+
+            if (!exists) {
+
+                repositories.push({
+                    name: remote.name,
+                    category: "General",
+                    language: remote.language || "Sin especificar",
+                    tags: [remote.language || "GitHub", "Repositorio"],
+                    description: remote.description ||
+                        "Repositorio público de GitHub. Visitá el proyecto para conocer sus detalles.",
+                    url: remote.html_url,
+                    stars: remote.stargazers_count || 0,
+                    updated_at: remote.updated_at
+                });
+
+            }
+        });
+
+        // Métricas
+        document.getElementById("totalRepos").textContent =
+            githubRepos.length;
+
+        document.getElementById("totalStars").textContent =
+            totalStars;
+
+        const languages = new Set(
+            githubRepos.map(repo => repo.language).filter(Boolean)
+        );
+
+        document.getElementById("totalLanguages").textContent =
+            languages.size;
+
+        status.textContent = "Conectado";
+        status.className = "text-xl font-extrabold mt-3 text-green-600";
+
+        message.textContent = "Datos actualizados desde GitHub";
+
+        // Renderizar resultados
+        applyFilters();
+
+    } catch (error) {
+
+        console.warn("GitHub API:", error);
+
+        status.textContent = "Modo local";
+        status.className = "text-xl font-extrabold mt-3 text-orange-500";
+
+        message.textContent = "Utilizando datos de respaldo";
+
+        document.getElementById("totalRepos").textContent =
+            repositories.length;
+
+        document.getElementById("totalStars").textContent =
+            "0";
+
+        document.getElementById("totalLanguages").textContent =
+            "6+";
+
+        applyFilters();
+    }
+}
+
+
+// ==========================================
+// 7. MENÚ RESPONSIVE
+// ==========================================
+
+const sidebar = document.getElementById("sidebar");
+
+document.getElementById("menuBtn").addEventListener("click", () => {
+
+    sidebar.classList.toggle("-translate-x-full");
+
+});
+
+document.addEventListener("click", event => {
+
+    if (
+        window.innerWidth < 1024 &&
+        !sidebar.contains(event.target) &&
+        !document.getElementById("menuBtn").contains(event.target)
+    ) {
+        sidebar.classList.add("-translate-x-full");
+    }
+
+});
+
+
+// ==========================================
+// 8. INICIALIZACIÓN
+// ==========================================
+
+// Mostrar primero los datos locales.
+renderRepos(repositories);
+
+// Actualizar cuando responda GitHub.
+loadGitHubData();
+
+</script>
+
+</body>
+</html>
